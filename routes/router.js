@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const clubsModel = require("../models/clubsModel.js");
 const playersModel = require("../models/playersModel.js");
@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
 });
 
 //fetching all players
-router.get("/players",  async (req, res) => {
+router.get("/players", async (req, res) => {
   try {
     const players = await playersModel.find({});
 
@@ -81,7 +81,7 @@ router.get("/players",  async (req, res) => {
 });
 
 //fetching player with name
-router.get("/players/:name",  async (req, res) => {
+router.get("/players/:name", async (req, res) => {
   try {
     const players = await playersModel.find({
       name: { $regex: req.params.name, $options: "i" },
@@ -119,7 +119,7 @@ router.get("/clubs/:name", verifyToken, async (req, res) => {
 });
 
 //fetching all managers
-router.get("/managers",  async (req, res) => {
+router.get("/managers", async (req, res) => {
   try {
     const managers = await managersModel.find({});
 
